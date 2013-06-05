@@ -18,24 +18,21 @@ def readadc(adcnum):
 	return adcout
 
 # TMP36 connected to adc #0
-temp_adc = 3;
+temp_adc = 0;
 
-try:
-	while True:
-		readadc(temp_adc)
-		rawTemp = readadc(temp_adc)
-		milliVolts = rawTemp * (3300.0 / 1024.0)
-        	tempCelsius = ((milliVolts - 100.0) / 10.0) - 40.0
- 
-		if DEBUG:
-			print "Value: ", rawTemp
-			print "MilliVolts: ", "%d" % milliVolts
-			
-		print "Temperature: ", "%4.1fC" % tempCelsius
-		print "\n"	
+while True:
+	readadc(temp_adc)
+	rawTemp = readadc(temp_adc)
+	milliVolts = rawTemp * (3300.0 / 1024.0)
+       	tempCelsius = ((milliVolts - 100.0) / 10.0) - 40.0
 
-		# hang out and do nothing for a half second
-		time.sleep(1)
+	if DEBUG:
+		print "Value: ", rawTemp
+		print "MilliVolts: ", "%d" % milliVolts
+		
+	print "Temperature: ", "%4.1fC" % tempCelsius
+        print "Light: ", "%d" % readadc(3)
+	print "\n"	
 
-except KeyboardInterrupt:
-        GPIO.cleanup()
+	# hang out and do nothing for a half second
+	time.sleep(1)
