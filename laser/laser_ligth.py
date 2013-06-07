@@ -5,6 +5,8 @@ import RPi.GPIO as GPIO
 import time
 import os
 
+import pygame.mixer
+
 # Set led pin.
 GPIO.setmode(GPIO.BCM)
 GREEN_LED = 24
@@ -28,6 +30,15 @@ L3 = 2;
 L4 = 3;
 L5 = 4;
 
+#sound files expect to be in the same directory as script
+s1 = pygame.mixer.Sound("./1.wav")
+s2 = pygame.mixer.Sound("./2.wav")
+s3 = pygame.mixer.Sound("./3.wav")
+s4 = pygame.mixer.Sound("./4.wav")
+s5 = pygame.mixer.Sound("./5.wav")
+
+pygame.mixer.init(44100, -16, 2, 1024)
+
 # Configuration vars
 LOWER = 500;
 
@@ -40,14 +51,29 @@ try:
 		v5 = readadc(L5);
 
 		# Test light value
-		if (LOWER < value ):
-			GPIO.output(GREEN_LED, True)
+		if (LOWER < v1 ):
+			GPIO.output(GREEN_LED, True);
 		else:
-			GPIO.output(GREEN_LED, False)
+			GPIO.output(GREEN_LED, False);
+
+		if (LOWER < v1):
+			s1.play()
+			
+		if (LOWER < v2):
+			s2.play()
+
+		if (LOWER < v3):
+			s3.play()
+
+		if (LOWER < v4):
+			s4.play()
+
+		if (LOWER < v5):
+			s5.play()
 
 		# hang out and do nothing for a half second
 		time.sleep(.1);
 
 
 except KeyboardInterrupt:
-	GPIO.cleanup()
+	GPIO.cleanup();
