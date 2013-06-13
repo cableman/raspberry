@@ -16,12 +16,13 @@ class LaserSensor:
 		return self.port
 
 	def getState(self):
+		self.checkState()
 		return self.state
 
 	def getValue(self):
 		return self.value
 
-	def changed(self):
+	def checkState(self):
 		self.value = self.readadc()
 		if (self.value > self.level):
 			# Laser On
