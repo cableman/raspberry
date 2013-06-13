@@ -1,5 +1,6 @@
 
 # Import sound extension.
+import time
 import pygame.mixer
 
 class SoundPlayer:
@@ -26,9 +27,6 @@ class SoundPlayer:
 		# Init mixer.
 		pygame.mixer.init(44100, -16, 2, 1024)
 
-		# Define sounds.
-		s1 = pygame.mixer.Sound("./1.wav")
-
 	def play(self, state):
 		# Find the key to lookup (zeros is laser off eq play sound, so xor it)
 		lookup = 0x1F ^ state
@@ -36,5 +34,8 @@ class SoundPlayer:
 		#Based on the key find the first sound to match.
 		for key in self.weight:
 			if (key == lookup):
+				# Play sound and block to done.
 				self.sounds[key]().play()
+				while pygame.mixer.get_busy():
+					time.sleep(.1)
 				break;
