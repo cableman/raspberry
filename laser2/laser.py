@@ -11,6 +11,7 @@ from sensor import LaserSensor
 from sound import SoundPlayer
 
 # Defind variables.
+DEBUG = 1;
 level = 100
 interval = .1
 
@@ -27,7 +28,7 @@ def initSPI():
 
 # Start spi and init Sensors.
 spi = initSPI()
-sensors = [LaserSensor(port, spi, level) for port in range(4)]
+sensors = [LaserSensor(port, spi, level) for port in range(5)]
 
 # Init sound
 player = SoundPlayer()
@@ -42,12 +43,12 @@ try:
 
 		# If any bits have been trun off (laser beam breaked).
 		if ((0x1F ^ state) & last_state):
-	     	# New sound should be played with the new state (if non change to off expression is false).
-	     	#'{0:08b}'.format((int('00011111',2) ^ int('00011010', 2)) & int('00000111',2)) = '00000101'
-	     	#	   						31					state               prev
+		     	# New sound should be played with the new state (if non change to off expression is false).
+		     	#'{0:08b}'.format((int('00011111',2) ^ int('00011010', 2)) & int('00000111',2)) = '00000101'
+	     		#	   						31					state               prev
 			player.play(state)
 
-		# Update state. 
+		# Update state.
 		last_state = state
 
 		# hang out and do nothing for a half second
