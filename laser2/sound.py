@@ -35,7 +35,7 @@ class SoundPlayer:
 		for key in self.weight:
 			if (key == lookup):
 				# Play sound and block to done.
-				self.sounds[key]().play()
-				while pygame.mixer.get_busy():
-					time.sleep(.1)
+				sound = self.sounds[key]()
+				sound.play()
+				time.sleep(sound.get_length())
 				break;
