@@ -38,7 +38,7 @@ try:
 		for sensor in sensors:
 			if (sensor.getState()):
 				# Laser on.
-				state = (1 << sensor.getPort())
+				state = state | (1 << sensor.getPort())
 
 		# If any bits have been trun off (laser beam breaked).
 		if ((0x1F ^ state) & last_state):
