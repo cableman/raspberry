@@ -11,8 +11,8 @@ from sensor import LaserSensor
 from sound import SoundPlayer
 
 # Defind variables.
-DEBUG = 1;
-level = 100
+DEBUG = 0;
+level = 700
 interval = .1
 
 # State vaiables (00011111 -> 31) in hex 1F.
@@ -34,6 +34,7 @@ sensors = [LaserSensor(port, spi, level) for port in range(5)]
 player = SoundPlayer()
 
 try:
+	print 'Ready to play...'
 	while True:
 		state = 0x00		
 		for sensor in sensors:
@@ -50,6 +51,10 @@ try:
 
 		# Update state.
 		last_state = state
+
+		if (DEBUG):
+			print '{0:08b}'.format(state)
+
 
 		# hang out and do nothing for a half second
 		time.sleep(interval);

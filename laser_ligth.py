@@ -40,10 +40,7 @@ try:
 		v5 = readadc(L5);
 
 		# Test light value
-		if (LOWER < value ):
-			GPIO.output(GREEN_LED, True)
-		else:
-			GPIO.output(GREEN_LED, False)
+		print v1, ' - ', v2, ' - ', v3, ' - ', v4, ' - ', v5
 
 		# hang out and do nothing for a half second
 		time.sleep(.1);
